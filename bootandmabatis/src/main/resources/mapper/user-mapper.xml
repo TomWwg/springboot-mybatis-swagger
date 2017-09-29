@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wwg.dao.UserDAO">
+    <resultMap id="BaseResultMap" type="com.wwg.entity.User">
+        <id column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT user_id, age, username
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.wwg.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.wwg.entity.User">
+        DELETE FROM user
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.wwg.entity.User">
+        INSERT INTO user ( age, 
+          username )
+        VALUES ( #{age,jdbcType=INTEGER}, 
+          #{username,jdbcType=VARCHAR} )
+        <selectKey keyProperty="userId" resultType="long">
+            SELECT LAST_INSERT_ID() AS userId
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.wwg.entity.User">
+        INSERT INTO user
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="age != null">
+                age,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        <selectKey keyProperty="userId" resultType="long">
+            SELECT LAST_INSERT_ID() AS userId
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO user ( age, 
+          username )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.age,jdbcType=INTEGER}, 
+            #{item.username,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wwg.entity.User">
+        UPDATE user
+        <set>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wwg.entity.User">
+        UPDATE user
+        SET age = #{age,jdbcType=INTEGER},
+            username = #{username,jdbcType=VARCHAR}
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </update>
+</mapper>
