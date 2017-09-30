@@ -32,6 +32,9 @@ public class BookController {
     @RequestMapping(value = "upsert", method = RequestMethod.POST)
     public ResultDto add(@RequestBody TeachBookDto dto){
         List<TeachBook> teachBooks = TeachBookDto.formList(dto);
+        if(teachBooks == null){
+            return ResultDto.toError("传入参数错误");
+        }
         bookService.upsertBatch(teachBooks);
         return ResultDto.toSuccess("success");
     }
