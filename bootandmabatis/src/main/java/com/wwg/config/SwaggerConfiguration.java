@@ -36,8 +36,8 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("IAM RESTful APIs")
                 .description("swagger2 构建  RESTful APIs")
-                .termsOfServiceUrl("www.janita.cn/")
-                .contact(new Contact("janita、zbmatsu", "www.janita.cn/", "zbmatsu@qq.com"))
+                .termsOfServiceUrl("www.wwg.cn/")
+                .contact(new Contact("wwg741889962", "www.wwg.cn/", "741889962@qq.com"))
                 .version("v1")
                 .build();
     }
