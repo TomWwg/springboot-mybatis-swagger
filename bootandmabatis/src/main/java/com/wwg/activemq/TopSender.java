@@ -5,7 +5,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 /**
- * Created by iel201704 on 2017/9/28.
+ * Created by wwg on 2017/9/28.
+ * @author wwg
  */
 public class TopSender {
     //连接账号
