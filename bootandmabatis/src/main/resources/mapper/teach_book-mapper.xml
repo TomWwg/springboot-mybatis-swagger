@@ -101,12 +101,14 @@
             publisher = #{publisher,jdbcType=VARCHAR}
         WHERE book_id = #{bookId,jdbcType=INTEGER}
     </update>
-
-
-    <select id="findAll" resultMap="BaseResultMap">
-        SELECT * FROM teach_book
+    <select id="findAll" resultMap="BaseResultMap" parameterType="com.wwg.entity.TeachBook">
+        SELECT book_id,
+               book_name,
+               book_no,
+               book_country,
+               publisher
+        FROM teach_book
     </select>
-
     <insert id="upsertBatch" parameterType="java.util.List">
         INSERT INTO teach_book ( book_name,book_no, book_country, publisher )
         VALUES

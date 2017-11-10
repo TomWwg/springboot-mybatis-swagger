@@ -1,7 +1,7 @@
 package com.wwg.entity;
 
 /**
- * Created by com.wwg.MybatisCodeGenerate on 2017-09-19
+ * Created by com.wwg.MybatisCodeGenerate on 2017-11-10
  */
 public class TeachBook implements java.io.Serializable {
 

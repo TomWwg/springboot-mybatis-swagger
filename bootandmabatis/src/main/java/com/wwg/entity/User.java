@@ -1,7 +1,7 @@
 package com.wwg.entity;
 
 /**
- * Created by com.wwg.MybatisCodeGenerate on 2017-09-29
+ * Created by com.wwg.MybatisCodeGenerate on 2017-11-10
  */
 public class User implements java.io.Serializable {
 

@@ -5,7 +5,7 @@ import com.wwg.entity.User;
 import java.util.List;
 
 /**
- * Created by com.wwg.MybatisCodeGenerate on 2017-09-19
+ * Created by com.wwg.MybatisCodeGenerate on 2017-11-10
  */
 public interface UserDAO {
     int deleteByPrimaryKey(Long userId);

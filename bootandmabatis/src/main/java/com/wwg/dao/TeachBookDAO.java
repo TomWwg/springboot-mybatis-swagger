@@ -5,7 +5,7 @@ import com.wwg.entity.TeachBook;
 import java.util.List;
 
 /**
- * Created by com.wwg.MybatisCodeGenerate on 2017-09-19
+ * Created by com.wwg.MybatisCodeGenerate on 2017-11-10
  */
 public interface TeachBookDAO {
     int deleteByPrimaryKey(Integer bookId);
@@ -25,5 +25,4 @@ public interface TeachBookDAO {
     List<TeachBook> findAll();
 
     void upsertBatch(List<TeachBook> books);
-
 }

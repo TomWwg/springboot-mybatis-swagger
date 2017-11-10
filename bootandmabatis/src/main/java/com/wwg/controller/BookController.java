@@ -25,7 +25,7 @@ public class BookController {
 
     @RequestMapping(value = "findAllByPage", method = RequestMethod.POST)
     public ResultDto findAllByPage(@RequestBody PageDto dto){
-        PageInfo<TeachBook> pageInfo = bookService.findAll(dto.buildPage(dto.getPageNum()));
+        PageInfo<TeachBook> pageInfo = bookService.findAll(PageDto.buildPage(dto.getPageNum()));
         return ResultDto.toSuccess(new PageRequest<>(pageInfo));
     }
 
