@@ -41,7 +41,7 @@ public class DruidDataSourceConfiguration {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         dataSource.setDriverClassName(driverClassName);
-        //在swagger时候可能用到，暂存
+        //验证数据库连接的有效性
         //dataSource.setValidationQuery("select * from teach_book where book_id=1");
 
         logger.info(dataSource.toString());
