@@ -3,11 +3,16 @@
 <mapper namespace="com.wwg.dao.UserDAO">
     <resultMap id="BaseResultMap" type="com.wwg.entity.User">
         <id column="user_id" property="userId" jdbcType="BIGINT"/>
-        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="hospital_id" property="hospitalId" jdbcType="BIGINT"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
     </resultMap>
     <sql id="SELECT_All_Column">
-        SELECT user_id, age, username
+        SELECT user_id, hospital_id, username, password, phone_number, 
+        remark, create_time
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.wwg.entity.User">
         SELECT *
@@ -19,10 +24,12 @@
         WHERE user_id = #{userId,jdbcType=BIGINT}
     </delete>
     <insert id="insert" parameterType="com.wwg.entity.User">
-        INSERT INTO user ( age, 
-          username )
-        VALUES ( #{age,jdbcType=INTEGER}, 
-          #{username,jdbcType=VARCHAR} )
+        INSERT INTO user ( hospital_id, 
+          username, password, phone_number, 
+          remark, create_time )
+        VALUES ( #{hospitalId,jdbcType=BIGINT}, 
+          #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
+          #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE} )
         <selectKey keyProperty="userId" resultType="long">
             SELECT LAST_INSERT_ID() AS userId
         </selectKey>
@@ -30,20 +37,44 @@
     <insert id="insertSelective" parameterType="com.wwg.entity.User">
         INSERT INTO user
         <trim prefix="(" suffixOverrides="," suffix=")">
-            <if test="age != null">
-                age,
+            <if test="hospitalId != null">
+                hospital_id,
             </if>
             <if test="username != null">
                 username,
             </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
         </trim>
         VALUES
         <trim prefix="(" suffixOverrides="," suffix=")">
-            <if test="age != null">
-                #{age,jdbcType=INTEGER},
+            <if test="hospitalId != null">
+                #{hospitalId,jdbcType=BIGINT},
             </if>
             <if test="username != null">
                 #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
             </if>
         </trim>
         <selectKey keyProperty="userId" resultType="long">
@@ -51,32 +82,50 @@
         </selectKey>
     </insert>
     <insert id="insertBatch" parameterType="java.util.List">
-        INSERT INTO user ( age, 
-          username )
+        INSERT INTO user ( hospital_id, 
+          username, password, phone_number, 
+          remark, create_time )
         VALUES
         <foreach collection="list" item="item" index="index" separator="," >
             (
-            #{item.age,jdbcType=INTEGER}, 
-            #{item.username,jdbcType=VARCHAR}
+            #{item.hospitalId,jdbcType=BIGINT}, 
+            #{item.username,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, #{item.phoneNumber,jdbcType=VARCHAR}, 
+            #{item.remark,jdbcType=VARCHAR}, #{item.createTime,jdbcType=DATE}
             )
         </foreach>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.wwg.entity.User">
         UPDATE user
         <set>
-            <if test="age != null">
-                age = #{age,jdbcType=INTEGER},
+            <if test="hospitalId != null">
+                hospital_id = #{hospitalId,jdbcType=BIGINT},
             </if>
             <if test="username != null">
                 username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=DATE},
             </if>
         </set>
         WHERE user_id = #{userId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.wwg.entity.User">
         UPDATE user
-        SET age = #{age,jdbcType=INTEGER},
-            username = #{username,jdbcType=VARCHAR}
+        SET hospital_id = #{hospitalId,jdbcType=BIGINT},
+            username = #{username,jdbcType=VARCHAR},
+            password = #{password,jdbcType=VARCHAR},
+            phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            remark = #{remark,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=DATE}
         WHERE user_id = #{userId,jdbcType=BIGINT}
     </update>
 </mapper>

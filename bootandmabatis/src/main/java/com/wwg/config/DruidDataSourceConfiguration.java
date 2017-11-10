@@ -41,7 +41,6 @@ public class DruidDataSourceConfiguration {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         dataSource.setDriverClassName(driverClassName);
-        dataSource.setValidationQuery("select * from teach_book where book_id=1");
 
         logger.info(dataSource.toString());
         return dataSource;
