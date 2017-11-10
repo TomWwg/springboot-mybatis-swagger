@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wwg.dao.TeachBookDAO">
+    <resultMap id="BaseResultMap" type="com.wwg.entity.TeachBook">
+        <id column="book_id" property="bookId" jdbcType="INTEGER"/>
+        <result column="book_name" property="bookName" jdbcType="VARCHAR"/>
+        <result column="book_no" property="bookNo" jdbcType="VARCHAR"/>
+        <result column="book_country" property="bookCountry" jdbcType="VARCHAR"/>
+        <result column="publisher" property="publisher" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT book_id, book_name, book_no, book_country, publisher
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.wwg.entity.TeachBook">
+        SELECT *
+        FROM teach_book
+        WHERE book_id = #{bookId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.wwg.entity.TeachBook">
+        DELETE FROM teach_book
+        WHERE book_id = #{bookId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.wwg.entity.TeachBook">
+        INSERT INTO teach_book ( book_name, 
+          book_no, book_country, publisher )
+        VALUES ( #{bookName,jdbcType=VARCHAR}, 
+          #{bookNo,jdbcType=VARCHAR}, #{bookCountry,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR} )
+        <selectKey keyProperty="bookId" resultType="int">
+            SELECT LAST_INSERT_ID() AS bookId
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.wwg.entity.TeachBook">
+        INSERT INTO teach_book
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="bookName != null">
+                book_name,
+            </if>
+            <if test="bookNo != null">
+                book_no,
+            </if>
+            <if test="bookCountry != null">
+                book_country,
+            </if>
+            <if test="publisher != null">
+                publisher,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="bookName != null">
+                #{bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="bookNo != null">
+                #{bookNo,jdbcType=VARCHAR},
+            </if>
+            <if test="bookCountry != null">
+                #{bookCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="publisher != null">
+                #{publisher,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        <selectKey keyProperty="bookId" resultType="int">
+            SELECT LAST_INSERT_ID() AS bookId
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO teach_book ( book_name, 
+          book_no, book_country, publisher )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.bookName,jdbcType=VARCHAR}, 
+            #{item.bookNo,jdbcType=VARCHAR}, #{item.bookCountry,jdbcType=VARCHAR}, #{item.publisher,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wwg.entity.TeachBook">
+        UPDATE teach_book
+        <set>
+            <if test="bookName != null">
+                book_name = #{bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="bookNo != null">
+                book_no = #{bookNo,jdbcType=VARCHAR},
+            </if>
+            <if test="bookCountry != null">
+                book_country = #{bookCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="publisher != null">
+                publisher = #{publisher,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE book_id = #{bookId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wwg.entity.TeachBook">
+        UPDATE teach_book
+        SET book_name = #{bookName,jdbcType=VARCHAR},
+            book_no = #{bookNo,jdbcType=VARCHAR},
+            book_country = #{bookCountry,jdbcType=VARCHAR},
+            publisher = #{publisher,jdbcType=VARCHAR}
+        WHERE book_id = #{bookId,jdbcType=INTEGER}
+    </update>
+    <select id="findAll" resultMap="BaseResultMap" parameterType="com.wwg.entity.TeachBook">
+        SELECT book_id,
+               book_name,
+               book_no,
+               book_country,
+               publisher
+        FROM teach_book
+    </select>
+    <insert id="upsertBatch" parameterType="java.util.List">
+        INSERT INTO teach_book ( book_name,book_no, book_country, publisher )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.bookName,jdbcType=VARCHAR},#{item.bookNo,jdbcType=VARCHAR}, #{item.bookCountry,jdbcType=VARCHAR}, #{item.publisher,jdbcType=VARCHAR})
+        </foreach>
+        ON DUPLICATE KEY UPDATE book_name=VALUES(book_name),publisher=VALUES(publisher);
+    </insert>
+</mapper>
