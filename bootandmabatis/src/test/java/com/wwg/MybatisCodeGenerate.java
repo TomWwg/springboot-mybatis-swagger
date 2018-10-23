@@ -28,7 +28,8 @@ import java.util.regex.Pattern;
 @SpringBootTest
 public class MybatisCodeGenerate {
     // -custom
-    private static String[] tableNames = new String[]{"decontamination","login_log","patient","process","role","station","step","user","using_log"};
+    // TODO，使用自动生成时需要修改tableNames
+    private static String[] tableNames = new String[]{"device","device_measure_record","device_model","user_device_relation"};
     // 程序会自动找到basePath
     private static String basePath = null;
 
@@ -74,7 +75,8 @@ public class MybatisCodeGenerate {
     public void codegenForOneTable(String oneTableName) throws Exception {
         String sourcePath = "src/main/java/";
         String sqlmapBasePath = "src/main/resources/mapper/";
-        String schema = "gastroscope";
+        // TODO 使用自动生成时需要修改数据库名字schema
+        String schema = "c_healthdevice";
         String fileCharset = "utf-8";
         String modalPackage = "com.wwg.entity";
         String daoPackage = "com.wwg.dao";
